@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Recetas - FoodPlaner</title>
+    <!-- Estilos CSS -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+        
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        
+        .search-bar {
+            padding: 10px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .search-bar input {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+        }
+        
+        .search-bar button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid #4CAF50;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        
+        .filters {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            margin: 5px;
+            padding: 8px 15px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        
+        .filter-btn.active {
+            background-color: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+        
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .recipe-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .recipe-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .recipe-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .recipe-info {
+            padding: 15px;
+        }
+        
+        .recipe-title {
+            font-size: 18px;
+            margin-top: 0;
+        }
+        
+        .recipe-description {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .recipe-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .favorite-btn {
+            background: none;
+            border: none;
+            color: #ccc;
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .favorite-btn.active {
+            color: #ff9800;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Catálogo de Recetas</h1>
+        <p>Encuentra las mejores recetas para tu plan alimenticio</p>
+    </header>
+    
+    <nav>
+        <a href="INICIOindex.html">Inicio</a>
+        <a href="RECETAindex.html" class="active">Catálogo</a>
+        <a href="CALENDARIOindex.html">Calendario</a>
+        <a href="LISTACOMPRASindex.html">Lista de Compras</a>
+        <a href="favoritosindex.html">Favoritos</a>
+    </nav>
+    
+    <div class="container">
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Buscar recetas...">
+            <button id="search-button">Buscar</button>
+        </div>
+        
+        <div class="filters">
+            <button class="filter-btn active" data-category="todos">Todos</button>
+            <button class="filter-btn" data-category="desayuno">Desayuno</button>
+            <button class="filter-btn" data-category="comida">Comida</button>
+            <button class="filter-btn" data-category="cena">Cena</button>
+            <button class="filter-btn" data-category="postre">Postre</button>
+            <button class="filter-btn" data-category="vegetariano">Vegetarianas</button>
+        </div>
+        
+        <div class="recipe-grid" id="recipe-container">
+            <!-- Contenido dinámico generado por JavaScript -->
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 FoodPlaner - Tu planificador de comidas semanal</p>
+    </footer>
+
+    <!-- Enlace JavaScript -->
+    <script src="RECETA.js"></script>
+</body>
+</html>
