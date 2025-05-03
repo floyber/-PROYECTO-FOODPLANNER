@@ -17,11 +17,42 @@
             background-color: #f5f5f5;
         }
         
-        header {
+        .header-title {
             background-color: #4CAF50;
             color: white;
             padding: 20px;
             text-align: center;
+        }
+        
+        .header-title h1 {
+            margin: 0;
+        }
+        
+        .header-title p {
+            margin-top: 5px;
+            font-size: 16px;
+        }
+        
+        .main-nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+        
+        .main-nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        
+        .main-nav a:hover {
+            background-color: #555;
+        }
+        
+        .main-nav a.active {
+            background-color: #4CAF50;
         }
         
         .container {
@@ -34,8 +65,24 @@
             margin-top: 20px;
         }
         
-        h1 {
+        .filters {
+            display: flex;
             margin-bottom: 20px;
+        }
+        
+        .filters button {
+            padding: 8px 15px;
+            margin-right: 10px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .filters button.active {
+            background-color: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
         }
         
         .add-item {
@@ -110,26 +157,6 @@
             opacity: 0.6;
         }
         
-        .filters {
-            display: flex;
-            margin-bottom: 20px;
-        }
-        
-        .filters button {
-            padding: 8px 15px;
-            margin-right: 10px;
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        .filters button.active {
-            background-color: #4CAF50;
-            color: white;
-            border-color: #4CAF50;
-        }
-        
         .clear-all {
             padding: 8px 15px;
             background-color: #e74c3c;
@@ -140,13 +167,8 @@
             margin-top: 20px;
         }
         
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            padding: 10px;
-        }
-        
-        .nav-buttons {
+        /* Para dispositivos móviles también mantener la navegación inferior */
+        .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
@@ -156,9 +178,10 @@
             justify-content: space-around;
             padding: 10px 0;
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 100;
         }
         
-        .nav-btn {
+        .bottom-nav a {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -166,20 +189,36 @@
             color: #333;
         }
         
-        .nav-btn i {
+        .bottom-nav i {
             font-size: 1.5em;
             margin-bottom: 5px;
         }
         
-        .nav-btn.active {
+        .bottom-nav a.active {
             color: #4CAF50;
+        }
+        
+        /* Media query para ocultar la navegación inferior en pantallas más grandes */
+        @media (min-width: 768px) {
+            .bottom-nav {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Lista de Compras</h1>
-    </header>
+    <div class="header-title">
+        <h1>FoodPlaner-Compras</h1>
+        <p>Tu planificador de comidas semanal</p>
+    </div>
+    
+    <div class="main-nav">
+        <a href="INICIOindex.html">Inicio</a>
+        <a href="CALENDARIOindex.html">Calendario</a>
+        <a href="RECETAindex.html">Catálogo de Recetas</a>
+        <a href="LISTACOMPRASindex.html" class="active">Lista de Compras</a>
+        <a href="favoritosindex.html">Favoritos</a>
+    </div>
     
     <div class="container">
         <div class="filters">
@@ -210,24 +249,25 @@
         <button class="clear-all" id="clear-all">Limpiar Lista</button>
     </div>
     
-    <div class="nav-buttons">
-        <a href="INICIOindex.html" class="nav-btn">
+    <!-- Navegación inferior para móviles -->
+    <div class="bottom-nav">
+        <a href="INICIOindex.html">
             <i class="fas fa-home"></i>
             <span>Inicio</span>
         </a>
-        <a href="RECETAindex.html" class="nav-btn">
+        <a href="RECETAindex.html">
             <i class="fas fa-book"></i>
             <span>Recetas</span>
         </a>
-        <a href="CALENDARIOindex.html" class="nav-btn">
+        <a href="CALENDARIOindex.html">
             <i class="fas fa-calendar"></i>
             <span>Calendario</span>
         </a>
-        <a href="LISTACOMPRASindex.html" class="nav-btn active">
+        <a href="LISTACOMPRASindex.html" class="active">
             <i class="fas fa-shopping-cart"></i>
             <span>Compras</span>
         </a>
-        <a href="favoritosindex.html" class="nav-btn">
+        <a href="favoritosindex.html">
             <i class="fas fa-heart"></i>
             <span>Favoritos</span>
         </a>

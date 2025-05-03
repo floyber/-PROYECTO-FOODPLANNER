@@ -152,6 +152,61 @@
             font-weight: bold;
         }
         
+        /* Estilos para el modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        /* Estilo para notificaciones */
+        .notificacion {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+            z-index: 9999;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        /* Contenedor de imagen */
+        .img-container {
+            height: 200px; 
+            background-color: #f0f0f0; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            overflow: hidden;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .favoritos-grid {
@@ -187,18 +242,49 @@
     </nav>
     
     <div class="container">
-        <div id="favoritos-container" class="favoritos-grid">
+        <!-- Indicador de carga -->
+        <div id="cargando" class="mensaje-vacio" style="text-align: center; padding: 20px;">
+            <i class="fas fa-spinner fa-spin" style="font-size: 24px; color: #4CAF50;"></i>
+            <p>Cargando tus recetas favoritas...</p>
+        </div>
+        
+        <div id="favoritos-container" class="favoritos-grid" style="display: none;">
             <!-- El contenido de favoritos se cargará dinámicamente mediante JavaScript -->
         </div>
         
         <div id="mensaje-vacio" class="mensaje-vacio" style="display: none;">
             <h3>No tienes recetas favoritas guardadas</h3>
             <p>Explora el catálogo de recetas y agrega tus favoritas</p>
-            <a href="CATALOSRECETAindex.html" class="btn btn-primary">
+            <a href="RECETAindex.html" class="btn btn-primary">
                 <i class="fas fa-search"></i> Explorar recetas
             </a>
         </div>
+        
+        <!-- Contenedor para mensajes de error -->
+        <div id="error-container" class="mensaje-vacio" style="display: none; color: #d32f2f;">
+            <h3><i class="fas fa-exclamation-triangle"></i> Ocurrió un problema</h3>
+            <p id="error-mensaje">Hubo un error al cargar tus recetas favoritas</p>
+            <button id="btn-reintentar" class="btn btn-primary" style="margin-top: 15px;">
+                <i class="fas fa-sync"></i> Reintentar
+            </button>
+        </div>
     </div>
+
+    <!-- Asegurarnos de que la carpeta de imágenes exista -->
+    <script>
+        // Este script se ejecuta para verificar que todo esté listo antes de cargar el contenido principal
+        console.log("Inicializando página de favoritos...");
+        
+        // Evento para el botón de reintentar
+        document.addEventListener('DOMContentLoaded', function() {
+            const btnReintentar = document.getElementById('btn-reintentar');
+            if (btnReintentar) {
+                btnReintentar.addEventListener('click', function() {
+                    window.location.reload();
+                });
+            }
+        });
+    </script>
 
     <!-- Enlace a JavaScript -->
     <script src="FAVORITOS.js"></script>

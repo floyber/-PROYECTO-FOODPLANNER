@@ -3,7 +3,7 @@ const recetas = [
     {
         id: 1,
         titulo: "Ensalada con Pollo",
-        descripcion: "Ensalada clásica con pollo a la parrilla, croutones y aderezo César casero.",
+        descripcion: "La ensalada con pollo es un plato ligero y nutritivo que mezcla vegetales frescos con trozos de pollo cocido, ideal como comida balanceada y rica en proteínas..",
         categoria: "comida",
         tiempo: "25 min",
         calorias: 350,
@@ -26,7 +26,7 @@ const recetas = [
     {
         id: 2,
         titulo: "Avena con Frutas",
-        descripcion: "Desayuno saludable de avena con frutas frescas y miel.",
+        descripcion: "La avena con frutas es un desayuno saludable que combina avena cocida o remojada con frutas frescas, ofreciendo una mezcla nutritiva de fibra, vitaminas y energía natural..",
         categoria: "desayuno",
         tiempo: "10 min",
         calorias: 250,
@@ -35,7 +35,7 @@ const recetas = [
         ingredientes: [
             "1/2 taza de avena",
             "1 taza de leche",
-            "1 plátano",
+            "1 platano",
             "Frutos rojos",
             "Miel al gusto"
         ],
@@ -49,7 +49,7 @@ const recetas = [
     {
         id: 3,
         titulo: "Salmón al Horno con Verduras",
-        descripcion: "Salmón horneado con verduras de temporada y limón.",
+        descripcion: "El salmón al horno con verduras es un plato saludable que combina filete de salmón asado con vegetales, ofreciendo una comida equilibrada, rica en ácidos grasos omega-3 y vitaminas..",
         categoria: "cena",
         tiempo: "30 min",
         calorias: 420,
@@ -59,7 +59,7 @@ const recetas = [
             "200g de salmón",
             "1 calabacín",
             "1 pimiento rojo",
-            "1 limón",
+            "1 limon",
             "Aceite de oliva",
             "Sal y pimienta"
         ],
@@ -73,12 +73,12 @@ const recetas = [
     },
     {
         id: 4,
-        titulo: "Tarta de Manzana",
-        descripcion: "Deliciosa tarta de manzana con canela y azúcar moreno.",
+        titulo: "Torta de Manzana",
+        descripcion: "La torta de manzana es un postre casero que combina masa suave con trozos de manzana, ofreciendo un sabor dulce y frutal, ideal para acompañar con café o té..",
         categoria: "postre",
         tiempo: "50 min",
         calorias: 300,
-        imagen: "https://images.unsplash.com/photo-1568571780765-9276a7afa7f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+        imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJPHQ1dWBrz4yrRrd76HTCQtxXb5NTgzXZtg&s",
         favorito: false,
         ingredientes: [
             "3 manzanas",
@@ -99,11 +99,11 @@ const recetas = [
     {
         id: 5,
         titulo: "Curry de Garbanzos",
-        descripcion: "Curry vegetariano de garbanzos con arroz basmati.",
+        descripcion: "El curry de garbanzos es un plato vegetal especiado, elaborado con garbanzos cocidos en una salsa de curry, ideal como opción nutritiva y rica en proteínas vegetales..",
         categoria: "vegetariano",
         tiempo: "35 min",
         calorias: 380,
-        imagen: "https://images.unsplash.com/photo-1546833998-877b37c2e5c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+        imagen: "https://i0.wp.com/spiceandcolour.com/wp-content/uploads/2021/02/DSC_0878_editado.jpg?fit=1140%2C760&ssl=1",
         favorito: true,
         ingredientes: [
             "1 lata de garbanzos",
@@ -124,11 +124,11 @@ const recetas = [
     {
         id: 6,
         titulo: "Tortilla Española",
-        descripcion: "Clásica tortilla española de patatas y cebolla.",
+        descripcion: "Clásica tortilla española de patatas y cebolla es un plato típico de España hecho con huevos, patatas y, a veces, cebolla. Se cocina en sartén hasta que queda dorada por fuera y jugosa por dentro.",
         categoria: "comida",
         tiempo: "40 min",
         calorias: 320,
-        imagen: "https://images.unsplash.com/photo-1607118750694-1b80acc97be4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+        imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhXexTZn60G-tf9N8o1Wlc5Fq5EvhLeA-gXQ&s",
         favorito: false,
         ingredientes: [
             "5 patatas medianas",
@@ -151,6 +151,11 @@ const recetas = [
 function renderizarRecetas(recetasMostradas = recetas) {
     const contenedor = document.getElementById('recipe-container');
     contenedor.innerHTML = '';
+    
+    if(recetasMostradas.length === 0) {
+        contenedor.innerHTML = '<div class="no-results">No se encontraron recetas con los criterios seleccionados.</div>';
+        return;
+    }
     
     recetasMostradas.forEach(receta => {
         const recetaCard = document.createElement('div');
@@ -203,17 +208,44 @@ function filtrarPorCategoria(categoria) {
 
 
 function buscarRecetas() {
-    const terminoBusqueda = document.getElementById('search-input').value.toLowerCase();
+    const terminoBusqueda = document.getElementById('search-input').value.toLowerCase().trim();
     
-    if (terminoBusqueda.trim() === '') {
+    if (terminoBusqueda === '') {
         renderizarRecetas();
         return;
     }
     
-    const recetasFiltradas = recetas.filter(receta => {
-        return receta.titulo.toLowerCase().includes(terminoBusqueda) ||
-               receta.descripcion.toLowerCase().includes(terminoBusqueda);
-    });
+    // Verificar si la búsqueda es por ingrediente (prefijo "i:" o "ingrediente:")
+    const esBusquedaPorIngrediente = terminoBusqueda.startsWith('i:') || terminoBusqueda.startsWith('ingrediente:');
+    
+    let recetasFiltradas = [];
+    
+    if (esBusquedaPorIngrediente) {
+        // Extraer el ingrediente quitando el prefijo
+        let ingredienteBuscado = terminoBusqueda;
+        if (terminoBusqueda.startsWith('i:')) {
+            ingredienteBuscado = terminoBusqueda.substring(2).trim();
+        } else if (terminoBusqueda.startsWith('ingrediente:')) {
+            ingredienteBuscado = terminoBusqueda.substring(12).trim();
+        }
+        
+        // Filtrar por ingrediente
+        recetasFiltradas = recetas.filter(receta => {
+            return receta.ingredientes.some(ingrediente => 
+                ingrediente.toLowerCase().includes(ingredienteBuscado)
+            );
+        });
+    } else {
+        // Búsqueda normal por título o descripción
+        recetasFiltradas = recetas.filter(receta => {
+            return receta.titulo.toLowerCase().includes(terminoBusqueda) ||
+                   receta.descripcion.toLowerCase().includes(terminoBusqueda) ||
+                   // También incluir búsqueda por ingredientes en modo normal
+                   receta.ingredientes.some(ingrediente => 
+                       ingrediente.toLowerCase().includes(terminoBusqueda)
+                   );
+        });
+    }
     
     renderizarRecetas(recetasFiltradas);
 }
@@ -252,6 +284,27 @@ function toggleFavorito(id) {
     }
 }
 
+// Función para buscar por múltiples ingredientes
+function buscarPorIngredientes(ingredientes) {
+    if (!Array.isArray(ingredientes) || ingredientes.length === 0) {
+        return recetas;
+    }
+    
+    const ingredientesLower = ingredientes.map(ing => ing.toLowerCase().trim());
+    
+    return recetas.filter(receta => {
+        // Convertir todos los ingredientes de la receta a minúsculas
+        const ingredientesReceta = receta.ingredientes.map(ing => ing.toLowerCase());
+        
+        // Verificar si al menos uno de los ingredientes buscados está en la receta
+        return ingredientesLower.some(ingredienteBuscado => 
+            ingredientesReceta.some(ingredienteReceta => 
+                ingredienteReceta.includes(ingredienteBuscado)
+            )
+        );
+    });
+}
+
 // Función para guardar favoritos en localStorage
 function guardarFavoritos() {
     const favoritos = recetas.filter(r => r.favorito).map(r => r.id);
@@ -276,6 +329,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Renderizar recetas iniciales
     renderizarRecetas();
+    
+    // Ya no se muestran los tags de ingredientes populares
+    // mostrarTagsIngredientes();  <-- Esta línea ha sido comentada/eliminada
     
     // Event listeners
     document.getElementById('search-button').addEventListener('click', buscarRecetas);
